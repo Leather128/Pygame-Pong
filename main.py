@@ -19,7 +19,8 @@ def main():
         paddle_right.position.y = screen_Height / 2 - paddle_size_y / 2
 
         if pointReset:
-            points = [0, 0]
+            points[0] = 0
+            points[1] = 0
 
     def hitPaddle():
         ball.velocity.x = ball.velocity.x - (ball.velocity.x * 2)
@@ -217,18 +218,19 @@ def main():
             pygame.mixer.Sound.play(score)
 
         # Ball Screen Check #
-        if ball.position.y < 0 + ball.size:
-            ball.position.y = 0 + ball.size
-            ball.velocity.y = random.randint(-5, 5)
+        if not selection_screen:
+            if ball.position.y < 0 + ball.size:
+                ball.position.y = 0 + ball.size
+                ball.velocity.y = random.randint(-5, 5)
 
-            if not ball.velocity.y <= 0:
-                pygame.mixer.Sound.play(ball_hit)
-        elif ball.position.y > screen_Height - ball.size:
-            ball.position.y = screen_Height - ball.size
-            ball.velocity.y = random.randint(-5, 5)
+                if not ball.velocity.y <= 0:
+                    pygame.mixer.Sound.play(ball_hit)
+            elif ball.position.y > screen_Height - ball.size:
+                ball.position.y = screen_Height - ball.size
+                ball.velocity.y = random.randint(-5, 5)
 
-            if not ball.velocity.y <= 0:
-                pygame.mixer.Sound.play(ball_hit)
+                if not ball.velocity.y <= 0:
+                    pygame.mixer.Sound.play(ball_hit)
 
         # Move Left Paddle #
         if not selection_screen:
