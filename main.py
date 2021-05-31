@@ -158,6 +158,13 @@ def main():
             splash_rect.center = (630 // 2, 200 // 2)
             screen.blit(splash, splash_rect)
 
+            version_num = pixel.render("v0.0.1", True, colors.GREY, bg_Color)
+            version_num_rect = version_num.get_rect()
+            version_num_rect.center = (0, 0)
+            version_num_rect.x = 0
+            version_num_rect.y = screen_Height - version_num_rect.height
+            screen.blit(version_num, version_num_rect)
+
         # Score Text #
         if not selection_screen:
             score_text = pixel.render(str(points[0]) + " - " + str(points[1]), True, colors.WHITE, bg_Color)
