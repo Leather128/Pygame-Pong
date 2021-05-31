@@ -199,10 +199,11 @@ def main():
         # Ball Collision #
         # We use a rectangular hit box for simplicity #
 
-        if paddle_right.is_touching(ball):
-            hitPaddle()
-        elif paddle_left.is_touching(ball):
-            hitPaddle()
+        if not selection_screen:
+            if paddle_right.is_touching(ball):
+                hitPaddle()
+            elif paddle_left.is_touching(ball):
+                hitPaddle()
 
         # Ball Outside Checks #
 
