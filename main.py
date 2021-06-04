@@ -71,6 +71,8 @@ def main():
     # Window Loop #
     running = True
 
+    pygame.key.set_repeat(100)
+
     while running:
         # Caps the framerate #
         clock.tick(max_FrameRate)
@@ -80,8 +82,6 @@ def main():
         
         # Refreshes the screen with the background color #
         screen.fill(bg_Color)
-
-        pygame.key.set_repeat(100)
 
         # Event handling #
         for event in pygame.event.get():
@@ -102,28 +102,27 @@ def main():
                             paddle_right.position.y = screen_Height - paddle_right.size.y
 
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_RETURN:
-                    if selection_screen:
+                if selection_screen:
+                    if event.key == pygame.K_RETURN:
                         resetArena(True)
                         selection_screen = False
                         pygame.mixer.Sound.play(select)
 
-                if event.key == pygame.K_UP:
-                    if selection_screen:
+                    if event.key == pygame.K_UP:
                         selected_difficulty -= 1
                         pygame.mixer.Sound.play(select)
 
-                if event.key == pygame.K_DOWN:
-                    if selection_screen:
+                    if event.key == pygame.K_DOWN:
                         selected_difficulty += 1
                         pygame.mixer.Sound.play(select)
 
-                if event.key == pygame.K_ESCAPE:
-                    if not selection_screen:
+                    if event.key == pygame.K_ESCAPE:
+                        running = False
+                else:
+                    if event.key == pygame.K_ESCAPE:
+                        resetArena(True)
                         selection_screen = True
                         pygame.mixer.Sound.play(select)
-                    else:
-                        running = False
 
             # If you quit the program with the window's x button #
             if event.type == pygame.QUIT:
@@ -236,10 +235,10 @@ def main():
         # Move Left Paddle #
         if not selection_screen:
             if ball.position.y > paddle_left.position.y:
-                paddle_left.position.y += ai_speed
+                paddle_left.position.y += (ai_speed / 10) * dt
 
             if ball.position.y < paddle_left.position.y:
-                paddle_left.position.y -= ai_speed
+                paddle_left.position.y -= (ai_speed / 10) * dt
 
         # Left Paddle Screen Check #
         if paddle_left.position.y < 0:
